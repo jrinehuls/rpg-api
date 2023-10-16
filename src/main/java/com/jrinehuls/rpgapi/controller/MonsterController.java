@@ -1,5 +1,6 @@
 package com.jrinehuls.rpgapi.controller;
 
+import com.jrinehuls.rpgapi.dto.MonsterDto;
 import com.jrinehuls.rpgapi.model.Monster;
 import com.jrinehuls.rpgapi.service.MonsterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,8 @@ public class MonsterController {
     MonsterService monsterService;
 
     @PostMapping(value = "/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Monster> saveMonster(@ModelAttribute Monster monster, @RequestPart MultipartFile file) {
-        return new ResponseEntity<>(monsterService.saveMonster(monster, file), HttpStatus.CREATED);
+    public ResponseEntity<Monster> saveMonster(@ModelAttribute MonsterDto monsterDto) {
+        return new ResponseEntity<>(monsterService.saveMonster(monsterDto), HttpStatus.CREATED);
     }
 
     @GetMapping("/")

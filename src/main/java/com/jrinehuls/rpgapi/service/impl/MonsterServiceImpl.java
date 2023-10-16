@@ -1,5 +1,6 @@
 package com.jrinehuls.rpgapi.service.impl;
 
+import com.jrinehuls.rpgapi.dto.MonsterDto;
 import com.jrinehuls.rpgapi.model.Monster;
 import com.jrinehuls.rpgapi.repository.MonsterRepository;
 import com.jrinehuls.rpgapi.service.MonsterService;
@@ -16,14 +17,16 @@ public class MonsterServiceImpl implements MonsterService {
     MonsterRepository monsterRepository;
 
     @Override
-    public Monster saveMonster(Monster monster, MultipartFile file) {
+    public Monster saveMonster(MonsterDto monsterDto) {
         byte[] bytes;
         try {
-            bytes = file.getBytes();
+            bytes = monsterDto.getImage().getBytes();
         } catch (IOException e) {
             // monster.setImage(null);
             throw new RuntimeException(e);
         }
+        Monster monster = new Monster();
+        monster.setName(monsterDto.getName());
         monster.setImage(bytes);
         return monsterRepository.save(monster);
     }
