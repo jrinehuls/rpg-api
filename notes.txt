@@ -1,0 +1,3 @@
+See OpenAPI http://localhost:8080/v3/api-docs
+See Swagger http://localhost:8080/swagger-ui/index.html
+See Database http://localhost:8080/h2
