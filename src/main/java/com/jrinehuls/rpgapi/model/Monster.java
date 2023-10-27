@@ -22,10 +22,10 @@ public class Monster {
     private String name;
 
     @Column(name = "hp", nullable = false)
-    private Integer HP;
+    private Integer hp;
 
     @Column(name = "mp", nullable = false)
-    private Integer MP;
+    private Integer mp;
 
     @Column(name = "attack", nullable = false)
     private Integer attack;

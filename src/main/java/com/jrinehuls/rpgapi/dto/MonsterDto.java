@@ -1,6 +1,7 @@
 package com.jrinehuls.rpgapi.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -21,45 +22,33 @@ public class MonsterDto {
     private String name;
 
     @NotNull(message = "hp must be provided")
-    @NotBlank(message = "hp cannot be blank")
-    private Integer HP;
+    private Integer hp;
 
     @NotNull(message = "mp must be provided")
-    @NotBlank(message = "mp cannot be blank")
-    private Integer MP;
+    private Integer mp;
 
     @NotNull(message = "attack must be provided")
-    @NotBlank(message = "attack cannot be blank")
     private Integer attack;
 
     @NotNull(message = "defense must be provided")
-    @NotBlank(message = "defense cannot be blank")
     private Integer defense;
 
-    @NotNull(message = "magic_attack must be provided")
-    @NotBlank(message = "magic_attack cannot be blank")
-    @JsonProperty(value = "magic_attack")
+    @NotNull(message = "magicAttack must be provided")
     private Integer magicAttack;
 
-    @NotNull(message = "magic_defense must be provided")
-    @NotBlank(message = "magic_defense cannot be blank")
-    @JsonProperty(value = "magic_defense")
+    @NotNull(message = "magicDefense must be provided")
     private Integer magicDefense;
 
     @NotNull(message = "speed must be provided")
-    @NotBlank(message = "speed cannot be blank")
     private Integer speed;
 
-    @NotNull(message = "base_gold must be provided")
-    @NotBlank(message = "base_gold cannot be blank")
-    @JsonProperty(value = "base_gold")
+    @NotNull(message = "baseGold must be provided")
     private Integer baseGold;
 
-    @NotNull(message = "base_exp must be provided")
-    @NotBlank(message = "base_exp cannot be blank")
-    @JsonProperty(value = "base_exp")
+    @NotNull(message = "baseExp must be provided")
     private Integer baseExp;
 
+    @JsonIgnore
     private MultipartFile image;
 
 }
