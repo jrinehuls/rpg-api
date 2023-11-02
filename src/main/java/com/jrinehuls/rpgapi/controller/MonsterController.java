@@ -12,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @Validated
 @RestController
 @RequestMapping("api/monster")
@@ -24,6 +26,8 @@ public class MonsterController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MonsterDto> saveMonster(@Valid @ModelAttribute MonsterDto monsterDto) {
         // return new ResponseEntity<>(monsterService.saveMonster(monsterDto), HttpStatus.CREATED);
+
+        // Ignore InputStream on file
         return new ResponseEntity<>(monsterDto, HttpStatus.CREATED);
     }
 
