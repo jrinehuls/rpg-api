@@ -2,6 +2,7 @@ package com.jrinehuls.rpgapi;
 
 import com.fasterxml.jackson.databind.exc.InvalidDefinitionException;
 import com.jrinehuls.rpgapi.exception.ErrorResponse;
+import com.jrinehuls.rpgapi.exception.notfound.MonsterNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,14 @@ import java.util.ArrayList;
 
 @ControllerAdvice
 public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler({MonsterNotFoundException.class})
+    public ResponseEntity<ErrorResponse> handleInvalidDefinitionException(MonsterNotFoundException ex) {
+        ArrayList<String> messages = new ArrayList<>();
+        messages.add(ex.getMessage());
+        ErrorResponse response = new ErrorResponse(messages);
+        return new ResponseEntity<>(response, ex.getStatusCode());
+    }
 
     @ExceptionHandler({InvalidDefinitionException.class})
     public ResponseEntity<ErrorResponse> handleInvalidDefinitionException(InvalidDefinitionException ex) {
