@@ -1,4 +1,4 @@
-package com.jrinehuls.rpgapi.dto;
+package com.jrinehuls.rpgapi.dto.monster;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,11 +11,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MonsterDto {
+public class MonsterRequestDto {
 
     @NotNull(message = "name must be provided")
     @NotBlank(message = "name cannot be blank")
@@ -48,7 +50,7 @@ public class MonsterDto {
     @NotNull(message = "baseExp must be provided")
     private Integer baseExp;
 
-    @JsonIgnore
+    @NotNull(message = "image must be provided")
     private MultipartFile image;
 
 }

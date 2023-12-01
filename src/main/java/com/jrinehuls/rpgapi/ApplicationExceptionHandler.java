@@ -2,6 +2,7 @@ package com.jrinehuls.rpgapi;
 
 import com.fasterxml.jackson.databind.exc.InvalidDefinitionException;
 import com.jrinehuls.rpgapi.exception.ErrorResponse;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -20,6 +21,14 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
 
     @ExceptionHandler({InvalidDefinitionException.class})
     public ResponseEntity<ErrorResponse> handleInvalidDefinitionException(InvalidDefinitionException ex) {
+        ArrayList<String> messages = new ArrayList<>();
+        messages.add(ex.getMessage());
+        ErrorResponse response = new ErrorResponse(messages);
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({DataIntegrityViolationException.class})
+    public ResponseEntity<ErrorResponse> handleInvalidDefinitionException(DataIntegrityViolationException ex) {
         ArrayList<String> messages = new ArrayList<>();
         messages.add(ex.getMessage());
         ErrorResponse response = new ErrorResponse(messages);

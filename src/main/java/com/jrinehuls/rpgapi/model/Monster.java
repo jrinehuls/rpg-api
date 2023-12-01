@@ -2,16 +2,17 @@ package com.jrinehuls.rpgapi.model;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "monster")
 @Getter
 @Setter
 @NoArgsConstructor
+@JsonPropertyOrder(value = {})
 public class Monster {
 
     @Id
@@ -53,8 +54,8 @@ public class Monster {
     private Integer baseExp;
 
     @Lob
-    @Column(name = "image", length = 65535)
+    @Column(name = "image", length = 65535) // Not sure what length does
+    @JsonProperty(value = "image_bytes")
     private byte[] image;
-
 
 }
