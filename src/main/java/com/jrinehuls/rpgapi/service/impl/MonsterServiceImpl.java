@@ -27,8 +27,8 @@ public class MonsterServiceImpl implements MonsterService {
         Monster monster = modelMapper.map(monsterRequestDto, Monster.class);
         try {
             monster.setImage(monsterRequestDto.getImage().getBytes());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (IOException | NullPointerException e) {
+            monster.setImage(null);
         }
 
         return monsterRepository.save(monster);

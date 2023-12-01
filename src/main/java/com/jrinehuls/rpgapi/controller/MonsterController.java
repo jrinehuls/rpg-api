@@ -23,7 +23,7 @@ public class MonsterController {
     @Autowired
     ModelMapper modelMapper;
 
-    @PostMapping(value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+    @PostMapping(value = "/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MonsterResponseDto> saveMonster(@Valid @ModelAttribute MonsterRequestDto monsterRequestDto) {
         Monster monster = monsterService.saveMonster(monsterRequestDto);
