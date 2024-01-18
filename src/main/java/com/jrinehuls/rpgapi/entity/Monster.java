@@ -1,11 +1,10 @@
-package com.jrinehuls.rpgapi.model;
+package com.jrinehuls.rpgapi.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "monster")
@@ -35,27 +34,23 @@ public class Monster {
     private Integer defense;
 
     @Column(name = "magic_attack", nullable = false)
-    @JsonProperty(value = "magic_attack")
     private Integer magicAttack;
 
     @Column(name = "magic_defense", nullable = false)
-    @JsonProperty(value = "magic_defense")
     private Integer magicDefense;
 
     @Column(name = "speed", nullable = false)
     private Integer speed;
 
     @Column(name = "base_gold", nullable = false)
-    @JsonProperty(value = "base_gold")
     private Integer baseGold;
 
     @Column(name = "base_exp", nullable = false)
-    @JsonProperty(value = "base_exp")
     private Integer baseExp;
 
     @Lob
-    @Column(name = "image", length = 65535) // Not sure what length does
-    @JsonProperty(value = "image_bytes")
+    @Column(name = "image", nullable = false)
+    // If coming from form, sends empty string
     private byte[] image;
 
 }

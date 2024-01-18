@@ -1,5 +1,6 @@
 package com.jrinehuls.rpgapi.configuration;
 
+import com.jrinehuls.rpgapi.util.mapper.MonsterMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,7 +9,8 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig {
 
     @Bean
-    public ModelMapper getModelMapper() {
-        return new ModelMapper();
+    public MonsterMapper getMonsterMapper() {
+        return new MonsterMapper();
     }
+
 }

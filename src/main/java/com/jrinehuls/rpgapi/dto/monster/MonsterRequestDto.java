@@ -50,7 +50,9 @@ public class MonsterRequestDto {
     @NotNull(message = "baseExp must be provided")
     private Integer baseExp;
 
-    // @NotNull(message = "image must be provided")
+    @NotNull(message = "image must be provided")
+    // Can't set to not blank, but converts bytes to empty string if image field created with no attachment in Postman
+    // Need to create custom validators for content type and blank file name
     private MultipartFile image;
 
 }

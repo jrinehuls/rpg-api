@@ -1,6 +1,6 @@
 package com.jrinehuls.rpgapi.repository;
 
-import com.jrinehuls.rpgapi.model.Monster;
+import com.jrinehuls.rpgapi.entity.Monster;
 import org.springframework.data.repository.CrudRepository;
 
 

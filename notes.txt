@@ -1,3 +1,6 @@
 See OpenAPI http://localhost:8080/v3/api-docs
 See Swagger http://localhost:8080/swagger-ui/index.html
 See Database http://localhost:8080/h2
+
+Make custom validators for image content type and if filed there, but no value in Monster RequestDto
+Reconfigure ErrorResponse and MethodArgNotValid to have Map<String, List<String>> errors
