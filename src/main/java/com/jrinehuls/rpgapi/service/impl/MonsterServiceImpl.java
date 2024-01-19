@@ -29,7 +29,7 @@ public class MonsterServiceImpl implements MonsterService {
         try {
             savedMonster = monsterRepository.save(monster);
         } catch (DataIntegrityViolationException e) {
-            String field = ExceptionParser.getField(e);
+            String field = ExceptionParser.getField(e, Monster.class);
             throw new MonsterConflictException(field);
         }
         return monsterMapper.mapMonsterToDto(savedMonster);
@@ -50,7 +50,7 @@ public class MonsterServiceImpl implements MonsterService {
         try {
             savedMonster = monsterRepository.save(updatedMonster);
         } catch (DataIntegrityViolationException e) {
-            String field = ExceptionParser.getField(e);
+            String field = ExceptionParser.getField(e, Monster.class);
             throw new MonsterConflictException(field);
         }
         return monsterMapper.mapMonsterToDto(savedMonster);

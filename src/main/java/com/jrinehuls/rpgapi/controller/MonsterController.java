@@ -49,5 +49,4 @@ public class MonsterController {
         return new ResponseEntity<>(image, HttpStatus.OK);
     }
 
-
 }
