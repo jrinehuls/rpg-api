@@ -10,10 +10,9 @@ public class ImageValidator implements ConstraintValidator<Image, MultipartFile>
 
     @Override
     public boolean isValid(MultipartFile file, ConstraintValidatorContext constraintValidatorContext) {
-        String fileExtension = file.getContentType();
-        if (fileExtension == null) return false;
+        if (file == null) return false;
         for (String extension : this.validExtensions) {
-            if (extension.equals(fileExtension)) return true;
+            if (extension.equals(file.getContentType())) return true;
         }
         return false;
     }

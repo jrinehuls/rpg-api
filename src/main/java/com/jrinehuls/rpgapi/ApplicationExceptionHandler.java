@@ -1,6 +1,7 @@
 package com.jrinehuls.rpgapi;
 
 import com.jrinehuls.rpgapi.exception.ErrorResponse;
+import com.jrinehuls.rpgapi.exception.conflict.MonsterConflictException;
 import com.jrinehuls.rpgapi.exception.notfound.MonsterNotFoundException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -46,11 +47,19 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
         return new ResponseEntity<>(response, ex.getStatusCode());
     }
 
+    @ExceptionHandler({MonsterConflictException.class})
+    public ResponseEntity<ErrorResponse> handleInvalidDefinitionException(MonsterConflictException ex) {
+        Map<String, List<String>> errors = new HashMap<>();
+        errors.put(ex.getField(), List.of(ex.getMessage()));
+        ErrorResponse response = new ErrorResponse(errors);
+        response.setMessage("There be conflicting data");
+        return new ResponseEntity<>(response, ex.getStatusCode());
+    }
+
     @ExceptionHandler({DataIntegrityViolationException.class})
     public ResponseEntity<ErrorResponse> handleInvalidDefinitionException(DataIntegrityViolationException ex) {
-        String constraintName = ((ConstraintViolationException) ex.getCause()).getConstraintName();
         ErrorResponse response = new ErrorResponse(null);
-        response.setMessage(constraintName);
+        response.setMessage(ex.getLocalizedMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 

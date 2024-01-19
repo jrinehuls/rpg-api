@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = ImageValidator.class)
 public @interface Image {
 
-    String message() default "File must be a png or jpeg";
+    String message() default "file extension must be png or jpeg";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 

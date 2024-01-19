@@ -12,7 +12,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonPropertyOrder()
+@JsonPropertyOrder(value = { "name", "hp", "mp", "attack", "defense", "magicAttack", "magicDefense", "speed",
+        "baseGold", "baseExp", "image"})
 public class MonsterResponseDto {
 
     private Long id;

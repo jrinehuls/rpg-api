@@ -1,8 +1,6 @@
 package com.jrinehuls.rpgapi.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,7 +11,6 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@JsonPropertyOrder(value = {})
 public class Monster {
 
     @Id
@@ -52,7 +49,6 @@ public class Monster {
 
     @Lob
     @Column(name = "image", nullable = false)
-    // If coming from form, sends empty string
     private byte[] image;
 
 }

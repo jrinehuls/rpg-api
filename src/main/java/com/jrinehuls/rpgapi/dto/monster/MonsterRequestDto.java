@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 
 @Getter
 @Setter
@@ -51,8 +50,6 @@ public class MonsterRequestDto {
 
     @NotNull(message = "image must be provided")
     @Image()
-    // Can't set to not blank, but converts bytes to empty string if image field created with no attachment in Postman
-    // Need to create custom validators for content type and blank file name
     private MultipartFile image;
 
 }
