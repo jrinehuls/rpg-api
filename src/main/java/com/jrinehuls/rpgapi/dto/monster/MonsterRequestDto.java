@@ -1,8 +1,7 @@
 package com.jrinehuls.rpgapi.dto.monster;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.jrinehuls.rpgapi.validation.Image;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -51,6 +50,7 @@ public class MonsterRequestDto {
     private Integer baseExp;
 
     @NotNull(message = "image must be provided")
+    @Image()
     // Can't set to not blank, but converts bytes to empty string if image field created with no attachment in Postman
     // Need to create custom validators for content type and blank file name
     private MultipartFile image;
