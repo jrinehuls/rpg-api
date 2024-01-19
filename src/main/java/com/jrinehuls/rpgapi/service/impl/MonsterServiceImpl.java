@@ -13,8 +13,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @AllArgsConstructor
 public class MonsterServiceImpl implements MonsterService {
@@ -29,7 +27,7 @@ public class MonsterServiceImpl implements MonsterService {
         try {
             savedMonster = monsterRepository.save(monster);
         } catch (DataIntegrityViolationException e) {
-            String field = ExceptionParser.getField(e, Monster.class);
+            String field = ExceptionParser.getUniqueConstraintField(e, Monster.class);
             throw new MonsterConflictException(field);
         }
         return monsterMapper.mapMonsterToDto(savedMonster);
@@ -50,7 +48,7 @@ public class MonsterServiceImpl implements MonsterService {
         try {
             savedMonster = monsterRepository.save(updatedMonster);
         } catch (DataIntegrityViolationException e) {
-            String field = ExceptionParser.getField(e, Monster.class);
+            String field = ExceptionParser.getUniqueConstraintField(e, Monster.class);
             throw new MonsterConflictException(field);
         }
         return monsterMapper.mapMonsterToDto(savedMonster);

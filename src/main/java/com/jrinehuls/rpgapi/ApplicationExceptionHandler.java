@@ -2,7 +2,11 @@ package com.jrinehuls.rpgapi;
 
 import com.jrinehuls.rpgapi.exception.ErrorResponse;
 import com.jrinehuls.rpgapi.exception.conflict.MonsterConflictException;
+import com.jrinehuls.rpgapi.exception.conflict.ResourceConflictException;
+import com.jrinehuls.rpgapi.exception.conflict.SpellConflictException;
 import com.jrinehuls.rpgapi.exception.notfound.MonsterNotFoundException;
+import com.jrinehuls.rpgapi.exception.notfound.ResourceNotFoundException;
+import com.jrinehuls.rpgapi.exception.notfound.SpellNotFoundException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
@@ -39,16 +43,16 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler({MonsterNotFoundException.class})
-    public ResponseEntity<ErrorResponse> handleInvalidDefinitionException(MonsterNotFoundException ex) {
+    @ExceptionHandler({MonsterNotFoundException.class, SpellNotFoundException.class})
+    public ResponseEntity<ErrorResponse> handleResourceNotFoundException(ResourceNotFoundException ex) {
         String message = ex.getMessage();
         ErrorResponse response = new ErrorResponse(null);
         response.setMessage(message);
         return new ResponseEntity<>(response, ex.getStatusCode());
     }
 
-    @ExceptionHandler({MonsterConflictException.class})
-    public ResponseEntity<ErrorResponse> handleInvalidDefinitionException(MonsterConflictException ex) {
+    @ExceptionHandler({MonsterConflictException.class, SpellConflictException.class})
+    public ResponseEntity<ErrorResponse> handleResourceConflictException(ResourceConflictException ex) {
         Map<String, List<String>> errors = new HashMap<>();
         errors.put(ex.getField(), List.of(ex.getMessage()));
         ErrorResponse response = new ErrorResponse(errors);
@@ -57,7 +61,7 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
     }
 
     @ExceptionHandler({DataIntegrityViolationException.class})
-    public ResponseEntity<ErrorResponse> handleInvalidDefinitionException(DataIntegrityViolationException ex) {
+    public ResponseEntity<ErrorResponse> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
         ErrorResponse response = new ErrorResponse(null);
         response.setMessage(ex.getLocalizedMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);

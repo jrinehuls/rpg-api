@@ -6,7 +6,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 
 public class ExceptionParser {
 
-    public static String getField(DataIntegrityViolationException ex, Class<?> mcClass) {
+    public static String getUniqueConstraintField(DataIntegrityViolationException ex, Class<?> mcClass) {
         String className = mcClass.getSimpleName().toUpperCase();
         String constraintText = ((ConstraintViolationException) ex.getCause()).getConstraintName();
         String right = constraintText.split(className + "\\(", 2)[1];
