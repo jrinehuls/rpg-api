@@ -7,7 +7,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "monster")
+@Table(name = "monster", uniqueConstraints = {
+        @UniqueConstraint(name = "UC_name", columnNames = { "name" } )
+})
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,7 +20,7 @@ public class Monster {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "hp", nullable = false)

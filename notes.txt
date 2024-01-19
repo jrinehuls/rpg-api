@@ -2,6 +2,15 @@ See OpenAPI http://localhost:8080/v3/api-docs
 See Swagger http://localhost:8080/swagger-ui/index.html
 See Database http://localhost:8080/h2
 
-Reconfigure ErrorResponse and MethodArgNotValid to have Map<String, List<String>> errors
 In monster mapper do something with IOException in convertImageToBytes
 org.springframework.web.multipart.MaxUploadSizeExceededException
+
+
+Work on DataIntegrityViolationException:
+"message": "\"PUBLIC.UC_HP_INDEX_7 ON PUBLIC.MONSTER(HP NULLS FIRST) VALUES ( /* 1 */ 10 )\";
+SQL statement:\ninsert
+into monster (attack,base_exp,base_gold,defense,hp,image,magic_attack,magic_defense,mp,name,speed,id)
+values (?,?,?,?,?,?,?,?,?,?,?,default) [23505-214]"
+
+Catch and throw MonsterConstraint. Make key the field with unique constraint and value the message
+Add to errors. Have message say unique constraint violation

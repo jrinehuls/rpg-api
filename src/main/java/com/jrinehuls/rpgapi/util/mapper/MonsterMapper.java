@@ -47,15 +47,11 @@ public class MonsterMapper {
     }
 
     private static byte[] convertImageToBytes(MultipartFile image) {
-        String filename = image.getOriginalFilename();
-        String contentType = image.getContentType();
-        System.out.println(filename + " " + contentType);
         try {
-            System.out.println("I got the bytes");
             return image.getBytes();
         } catch (IOException e) {
             return null;
-            //throw new RuntimeException(e);
+            // throw new RuntimeException(e);
         }
     }
 
