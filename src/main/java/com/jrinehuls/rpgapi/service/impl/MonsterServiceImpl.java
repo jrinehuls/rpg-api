@@ -36,6 +36,27 @@ public class MonsterServiceImpl implements MonsterService {
     }
 
     @Override
+    public MonsterResponseDto getMonster(Long id) {
+        Monster monster = monsterRepository.findById(id).orElseThrow(() -> new MonsterNotFoundException(id));
+        return monsterMapper.mapMonsterToDto(monster);
+    }
+
+    @Override
+    public MonsterResponseDto updateMonster(Long id, MonsterRequestDto monsterRequestDto) {
+        Monster monster = monsterRepository.findById(id).orElseThrow(() -> new MonsterNotFoundException(id));
+        Monster updatedMonster = monsterMapper.mapDtoToMonster(monsterRequestDto);
+        updatedMonster.setId(monster.getId());
+        Monster savedMonster;
+        try {
+            savedMonster = monsterRepository.save(updatedMonster);
+        } catch (DataIntegrityViolationException e) {
+            String field = ExceptionParser.getField(e);
+            throw new MonsterConflictException(field);
+        }
+        return monsterMapper.mapMonsterToDto(savedMonster);
+    }
+
+    @Override
     public byte[] getImageById(Long id) {
         Monster monster = monsterRepository.findById(id).orElseThrow(() -> new MonsterNotFoundException(id));
         return monster.getImage();

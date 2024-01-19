@@ -7,5 +7,9 @@ public interface MonsterService {
 
     MonsterResponseDto saveMonster(MonsterRequestDto monsterRequestDto);
 
+    MonsterResponseDto getMonster(Long id);
+
+    MonsterResponseDto updateMonster(Long id, MonsterRequestDto monsterRequestDto);
+
     byte[] getImageById(Long id);
 }

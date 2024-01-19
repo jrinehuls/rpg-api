@@ -24,6 +24,7 @@ public class MonsterMapper {
         monster.setBaseGold(monsterDto.getBaseGold());
         monster.setBaseExp(monsterDto.getBaseExp());
         monster.setImage(MonsterMapper.convertImageToBytes(monsterDto.getImage()));
+        monster.setImageExtension(getFileExtension(monsterDto.getImage().getContentType()));
 
         return monster;
     }
@@ -42,8 +43,13 @@ public class MonsterMapper {
         monsterDto.setBaseGold(monster.getBaseGold());
         monsterDto.setBaseExp(monster.getBaseExp());
         monsterDto.setImage(monster.getImage());
+        monsterDto.setImageExtension(monster.getImageExtension());
 
         return monsterDto;
+    }
+
+    private static String getFileExtension(String withSlash) {
+        return withSlash.split("/")[1];
     }
 
     private static byte[] convertImageToBytes(MultipartFile image) {
@@ -51,7 +57,6 @@ public class MonsterMapper {
             return image.getBytes();
         } catch (IOException e) {
             return null;
-            // throw new RuntimeException(e);
         }
     }
 

@@ -51,4 +51,7 @@ public class Monster {
     @Column(name = "image", nullable = false)
     private byte[] image;
 
+    @Column(name = "image_extension", nullable = false)
+    private String imageExtension;
+
 }

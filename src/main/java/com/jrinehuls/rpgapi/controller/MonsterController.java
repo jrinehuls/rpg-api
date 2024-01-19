@@ -25,6 +25,18 @@ public class MonsterController {
         return new ResponseEntity<>(monsterService.saveMonster(monsterRequestDto), HttpStatus.CREATED);
     }
 
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<MonsterResponseDto> getMonster(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(monsterService.getMonster(id), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<MonsterResponseDto> updateMonster(@PathVariable("id") Long id, @Valid @ModelAttribute
+                                                            MonsterRequestDto monsterRequestDto) {
+        return new ResponseEntity<>(monsterService.updateMonster(id, monsterRequestDto), HttpStatus.OK);
+    }
+
     @GetMapping(value = "/{id}/image", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<byte[]> getMonsterImage(@PathVariable Long id) {
         byte[] image = monsterService.getImageById(id);
