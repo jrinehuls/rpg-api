@@ -37,6 +37,12 @@ public class MonsterController {
         return new ResponseEntity<>(monsterService.updateMonster(id, monsterRequestDto), HttpStatus.OK);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<HttpStatus> deleteMonster(@PathVariable("id") Long id) {
+        monsterService.deleteMonster(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
     @GetMapping(value = "/{id}/image", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<byte[]> getMonsterImage(@PathVariable Long id) {
         byte[] image = monsterService.getImageById(id);

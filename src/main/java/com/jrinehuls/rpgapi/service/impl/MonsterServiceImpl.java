@@ -57,6 +57,12 @@ public class MonsterServiceImpl implements MonsterService {
     }
 
     @Override
+    public void deleteMonster(Long id) {
+        Monster monster = monsterRepository.findById(id).orElseThrow(() -> new MonsterNotFoundException(id));
+        monsterRepository.delete(monster);
+    }
+
+    @Override
     public byte[] getImageById(Long id) {
         Monster monster = monsterRepository.findById(id).orElseThrow(() -> new MonsterNotFoundException(id));
         return monster.getImage();

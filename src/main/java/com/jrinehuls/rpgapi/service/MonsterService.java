@@ -11,5 +11,7 @@ public interface MonsterService {
 
     MonsterResponseDto updateMonster(Long id, MonsterRequestDto monsterRequestDto);
 
+    void deleteMonster(Long id);
+
     byte[] getImageById(Long id);
 }
