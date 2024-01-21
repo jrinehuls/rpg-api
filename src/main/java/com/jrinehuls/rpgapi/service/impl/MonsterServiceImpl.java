@@ -23,14 +23,13 @@ public class MonsterServiceImpl implements MonsterService {
     @Override
     public MonsterResponseDto saveMonster(MonsterRequestDto monsterRequestDto) {
         Monster monster = monsterMapper.mapDtoToMonster(monsterRequestDto);
-        Monster savedMonster;
         try {
-            savedMonster = monsterRepository.save(monster);
+            Monster savedMonster = monsterRepository.save(monster);
+            return monsterMapper.mapMonsterToDto(savedMonster);
         } catch (DataIntegrityViolationException e) {
             String field = ExceptionParser.getUniqueConstraintField(e, Monster.class);
             throw new MonsterConflictException(field);
         }
-        return monsterMapper.mapMonsterToDto(savedMonster);
     }
 
     @Override
@@ -42,16 +41,15 @@ public class MonsterServiceImpl implements MonsterService {
     @Override
     public MonsterResponseDto updateMonster(Long id, MonsterRequestDto monsterRequestDto) {
         Monster monster = monsterRepository.findById(id).orElseThrow(() -> new MonsterNotFoundException(id));
-        Monster updatedMonster = monsterMapper.mapDtoToMonster(monsterRequestDto);
-        updatedMonster.setId(monster.getId());
-        Monster savedMonster;
         try {
-            savedMonster = monsterRepository.save(updatedMonster);
+            Monster updatedMonster = monsterMapper.mapDtoToMonster(monsterRequestDto);
+            updatedMonster.setId(monster.getId());
+            Monster savedMonster = monsterRepository.save(updatedMonster);
+            return monsterMapper.mapMonsterToDto(savedMonster);
         } catch (DataIntegrityViolationException e) {
             String field = ExceptionParser.getUniqueConstraintField(e, Monster.class);
             throw new MonsterConflictException(field);
         }
-        return monsterMapper.mapMonsterToDto(savedMonster);
     }
 
     @Override

@@ -23,17 +23,17 @@ public class SpellController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<SpellResponseDto> getSpell(@PathVariable("{id}") Long id) {
+    public ResponseEntity<SpellResponseDto> getSpell(@PathVariable("id") Long id) {
         return new ResponseEntity<>(spellService.getSpell(id), HttpStatus.OK);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<SpellResponseDto> updateSpell(@PathVariable("{id}") Long id, @Valid @RequestBody SpellRequestDto dto) {
+    public ResponseEntity<SpellResponseDto> updateSpell(@PathVariable("id") Long id, @Valid @RequestBody SpellRequestDto dto) {
         return new ResponseEntity<>(spellService.updateSpell(id, dto), HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<HttpStatus> updateSpell(@PathVariable("{id}") Long id) {
+    public ResponseEntity<HttpStatus> updateSpell(@PathVariable("id") Long id) {
         spellService.deleteSpell(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

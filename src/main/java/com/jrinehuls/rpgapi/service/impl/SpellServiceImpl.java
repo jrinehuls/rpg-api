@@ -42,7 +42,10 @@ public class SpellServiceImpl implements SpellService {
     public SpellResponseDto updateSpell(Long id, SpellRequestDto spellRequestDto) {
         Spell spell = spellRepository.findById(id).orElseThrow(() -> new SpellNotFoundException(id));
         try {
-            return spellMapper.mapSpellToDto(spell);
+            Spell updatedSpell = spellMapper.mapDtoToSpell(spellRequestDto);
+            updatedSpell.setId(spell.getId());
+            Spell savedSpell = spellRepository.save(updatedSpell);
+            return spellMapper.mapSpellToDto(savedSpell);
         } catch (DataIntegrityViolationException e) {
             String field = ExceptionParser.getUniqueConstraintField(e, Spell.class);
             throw new SpellConflictException(field);
