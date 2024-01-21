@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "spell", uniqueConstraints = {
         @UniqueConstraint(name = "UC_spell_name", columnNames = { "name" })
@@ -26,5 +28,13 @@ public class Spell {
 
     @Column (name = "power", nullable = false)
     private Integer power;
+
+    @ManyToMany
+    @JoinTable(
+            name = "monster_spell",
+            joinColumns = @JoinColumn(name = "spell_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "monster_id", referencedColumnName = "id")
+    )
+    private Set<Monster> monsters;
 
 }

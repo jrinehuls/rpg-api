@@ -4,6 +4,8 @@ package com.jrinehuls.rpgapi.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "monster", uniqueConstraints = {
         @UniqueConstraint(name = "UC_name", columnNames = { "name" } )
@@ -53,5 +55,13 @@ public class Monster {
 
     @Column(name = "image_extension", nullable = false)
     private String imageExtension;
+
+    @ManyToMany
+    @JoinTable(
+            name = "monster_spell",
+            joinColumns = @JoinColumn(name = "monster_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "spell_id", referencedColumnName = "id")
+    )
+    private Set<Spell> spells;
 
 }

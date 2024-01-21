@@ -7,4 +7,4 @@ org.springframework.web.multipart.MaxUploadSizeExceededException
 
 Make GET all monsters endpoint
 
-Work on spell APIs
+Work on Apis to handle many-to-many relationship
