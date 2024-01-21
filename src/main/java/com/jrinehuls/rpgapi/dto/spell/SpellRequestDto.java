@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 @NoArgsConstructor
 @Getter
@@ -14,10 +15,12 @@ public class SpellRequestDto {
 
     @NotBlank(message = "name cannot be blank")
     @NotNull(message = "name cannot be null")
+    @Length(max = 255, message = "name cannot be longer than 255 characters")
     private String name;
 
     @NotBlank(message = "description cannot be blank")
     @NotNull(message = "description cannot be null")
+    @Length(max = 255, message = "description cannot be longer than 255 characters")
     private String description;
 
     @NotNull(message = "power cannot be null")

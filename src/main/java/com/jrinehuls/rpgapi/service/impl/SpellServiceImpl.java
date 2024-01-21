@@ -4,12 +4,12 @@ import com.jrinehuls.rpgapi.dto.spell.SpellRequestDto;
 import com.jrinehuls.rpgapi.dto.spell.SpellResponseDto;
 import com.jrinehuls.rpgapi.entity.Spell;
 import com.jrinehuls.rpgapi.exception.conflict.SpellConflictException;
+import com.jrinehuls.rpgapi.exception.notfound.SpellNotFoundException;
 import com.jrinehuls.rpgapi.repository.SpellRepository;
 import com.jrinehuls.rpgapi.service.SpellService;
 import com.jrinehuls.rpgapi.util.ExceptionParser;
 import com.jrinehuls.rpgapi.util.mapper.SpellMapper;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -17,19 +17,41 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class SpellServiceImpl implements SpellService {
 
-    SpellRepository spellRepository;
-    SpellMapper spellMapper;
+    private SpellRepository spellRepository;
+    private SpellMapper spellMapper;
 
     @Override
     public SpellResponseDto saveSpell(SpellRequestDto spellRequestDto) {
         Spell spell = spellMapper.mapDtoToSpell(spellRequestDto);
-        Spell savedSpell;
         try {
-            savedSpell = spellRepository.save(spell);
+            Spell savedSpell = spellRepository.save(spell);
+            return spellMapper.mapSpellToDto(savedSpell);
         } catch (DataIntegrityViolationException e) {
             String field = ExceptionParser.getUniqueConstraintField(e, Spell.class);
             throw new SpellConflictException(field);
         }
-        return spellMapper.mapSpellToDto(savedSpell);
+    }
+
+    @Override
+    public SpellResponseDto getSpell(Long id) {
+        Spell spell = spellRepository.findById(id).orElseThrow(() -> new SpellNotFoundException(id));
+        return spellMapper.mapSpellToDto(spell);
+    }
+
+    @Override
+    public SpellResponseDto updateSpell(Long id, SpellRequestDto spellRequestDto) {
+        Spell spell = spellRepository.findById(id).orElseThrow(() -> new SpellNotFoundException(id));
+        try {
+            return spellMapper.mapSpellToDto(spell);
+        } catch (DataIntegrityViolationException e) {
+            String field = ExceptionParser.getUniqueConstraintField(e, Spell.class);
+            throw new SpellConflictException(field);
+        }
+    }
+
+    @Override
+    public void deleteSpell(Long id) {
+        Spell spell = spellRepository.findById(id).orElseThrow(() -> new SpellNotFoundException(id));
+        spellRepository.delete(spell);
     }
 }

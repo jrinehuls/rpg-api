@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class MonsterServiceImpl implements MonsterService {
 
-    MonsterRepository monsterRepository;
-    MonsterMapper monsterMapper;
+    private MonsterRepository monsterRepository;
+    private MonsterMapper monsterMapper;
 
     @Override
     public MonsterResponseDto saveMonster(MonsterRequestDto monsterRequestDto) {

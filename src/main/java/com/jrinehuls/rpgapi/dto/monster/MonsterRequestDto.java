@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -19,6 +20,7 @@ public class MonsterRequestDto {
 
     @NotNull(message = "name must be provided")
     @NotBlank(message = "name cannot be blank")
+    @Length(max = 255, message = "name cannot be longer than 255 characters")
     private String name;
 
     @NotNull(message = "hp must be provided")

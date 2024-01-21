@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class MonsterController {
 
     @Autowired
-    MonsterService monsterService;
+    private MonsterService monsterService;
 
     @PostMapping(value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)

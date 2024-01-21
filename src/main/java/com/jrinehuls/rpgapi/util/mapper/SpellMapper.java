@@ -19,6 +19,7 @@ public class SpellMapper {
 
     public SpellResponseDto mapSpellToDto(Spell spell) {
         SpellResponseDto spellDto = new SpellResponseDto();
+        spellDto.setId(spell.getId());
         spellDto.setName(spell.getName());
         spellDto.setDescription(spell.getDescription());
         spellDto.setPower(spell.getPower());
