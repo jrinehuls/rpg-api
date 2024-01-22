@@ -1,5 +1,6 @@
 package com.jrinehuls.rpgapi.controller;
 
+import com.jrinehuls.rpgapi.dto.monster.MonsterResponseDto;
 import com.jrinehuls.rpgapi.dto.spell.SpellRequestDto;
 import com.jrinehuls.rpgapi.dto.spell.SpellResponseDto;
 import com.jrinehuls.rpgapi.entity.Spell;
@@ -9,6 +10,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 @RestController
 @RequestMapping("api/spell")
@@ -36,6 +39,11 @@ public class SpellController {
     public ResponseEntity<HttpStatus> updateSpell(@PathVariable("id") Long id) {
         spellService.deleteSpell(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/{id}/monsters")
+    public ResponseEntity<Set<MonsterResponseDto>> getMonsters(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(spellService.getMonsters(id), HttpStatus.OK);
     }
 
 }
