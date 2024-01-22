@@ -51,6 +51,12 @@ public class MonsterController {
         return new ResponseEntity<>(monsterService.getSpells(id), HttpStatus.OK);
     }
 
+    @PatchMapping("/{monsterId}/spell/{spellId}")
+    public ResponseEntity<Set<SpellResponseDto>> addSpellToMonster(@PathVariable("monsterId") Long monsterId,
+                                                                   @PathVariable("spellId") Long spellId) {
+        return new ResponseEntity<>(monsterService.addSpellToMonster(monsterId, spellId), HttpStatus.OK);
+    }
+
     @GetMapping(value = "/{id}/image", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<byte[]> getMonsterImage(@PathVariable Long id) {
         byte[] image = monsterService.getImageById(id);

@@ -18,5 +18,7 @@ public interface MonsterService {
 
     Set<SpellResponseDto> getSpells(Long id);
 
+    Set<SpellResponseDto> addSpellToMonster(Long monsterId, Long spellId);
+
     byte[] getImageById(Long id);
 }

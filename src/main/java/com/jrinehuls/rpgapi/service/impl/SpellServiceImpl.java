@@ -68,7 +68,7 @@ public class SpellServiceImpl implements SpellService {
 
     @Override
     public Set<MonsterResponseDto> getMonsters(Long id) {
-        Spell spell = spellRepository.findById(id).orElseThrow(() -> new MonsterNotFoundException(id));
+        Spell spell = spellRepository.findById(id).orElseThrow(() -> new SpellNotFoundException(id));
         Set<Monster> monsters = spell.getMonsters();
         Set<MonsterResponseDto> monsterDtos = new HashSet<>();
         for (Monster monster: monsters) {
