@@ -19,7 +19,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Service
@@ -73,14 +72,6 @@ public class MonsterServiceImpl implements MonsterService {
     public Set<SpellResponseDto> getSpells(Long id) {
         Monster monster = monsterRepository.findById(id).orElseThrow(() -> new MonsterNotFoundException(id));
         return this.getMonsterSpells(monster);
-        /*
-        Set<Spell> spells = monster.getSpells();
-        Set<SpellResponseDto> spellDtos = new HashSet<>();
-        for (Spell spell: spells) {
-            spellDtos.add(spellMapper.mapSpellToDto(spell));
-        }
-        return spellDtos;
-        */
     }
 
     @Override
