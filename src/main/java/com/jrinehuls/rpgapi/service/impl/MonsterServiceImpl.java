@@ -2,6 +2,8 @@ package com.jrinehuls.rpgapi.service.impl;
 
 import com.jrinehuls.rpgapi.dto.monster.MonsterRequestDto;
 import com.jrinehuls.rpgapi.dto.monster.MonsterResponseDto;
+import com.jrinehuls.rpgapi.dto.spell.SpellResponseDto;
+import com.jrinehuls.rpgapi.entity.Spell;
 import com.jrinehuls.rpgapi.exception.conflict.MonsterConflictException;
 import com.jrinehuls.rpgapi.exception.notfound.MonsterNotFoundException;
 import com.jrinehuls.rpgapi.entity.Monster;
@@ -9,9 +11,14 @@ import com.jrinehuls.rpgapi.repository.MonsterRepository;
 import com.jrinehuls.rpgapi.service.MonsterService;
 import com.jrinehuls.rpgapi.util.ExceptionParser;
 import com.jrinehuls.rpgapi.util.mapper.MonsterMapper;
+import com.jrinehuls.rpgapi.util.mapper.SpellMapper;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -19,6 +26,7 @@ public class MonsterServiceImpl implements MonsterService {
 
     private MonsterRepository monsterRepository;
     private MonsterMapper monsterMapper;
+    private SpellMapper spellMapper;
 
     @Override
     public MonsterResponseDto saveMonster(MonsterRequestDto monsterRequestDto) {
@@ -56,6 +64,17 @@ public class MonsterServiceImpl implements MonsterService {
     public void deleteMonster(Long id) {
         Monster monster = monsterRepository.findById(id).orElseThrow(() -> new MonsterNotFoundException(id));
         monsterRepository.delete(monster);
+    }
+
+    @Override
+    public Set<SpellResponseDto> getSpells(Long id) {
+        Monster monster = monsterRepository.findById(id).orElseThrow(() -> new MonsterNotFoundException(id));
+        Set<Spell> spells = monster.getSpells();
+        Set<SpellResponseDto> spellDtos = new HashSet<>();
+        for (Spell spell: spells) {
+            spellDtos.add(spellMapper.mapSpellToDto(spell));
+        }
+        return spellDtos;
     }
 
     @Override

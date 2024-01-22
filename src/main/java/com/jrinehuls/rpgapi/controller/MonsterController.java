@@ -2,6 +2,7 @@ package com.jrinehuls.rpgapi.controller;
 
 import com.jrinehuls.rpgapi.dto.monster.MonsterRequestDto;
 import com.jrinehuls.rpgapi.dto.monster.MonsterResponseDto;
+import com.jrinehuls.rpgapi.dto.spell.SpellResponseDto;
 import com.jrinehuls.rpgapi.entity.Monster;
 import com.jrinehuls.rpgapi.service.MonsterService;
 import jakarta.validation.Valid;
@@ -11,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 @RestController
 @RequestMapping("api/monster")
@@ -41,6 +44,11 @@ public class MonsterController {
     public ResponseEntity<HttpStatus> deleteMonster(@PathVariable("id") Long id) {
         monsterService.deleteMonster(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/{id}/spells")
+    public ResponseEntity<Set<SpellResponseDto>> getSpells(@PathVariable("id") Long id) {
+        return new ResponseEntity<>(monsterService.getSpells(id), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}/image", produces = MediaType.IMAGE_JPEG_VALUE)
