@@ -16,6 +16,7 @@ import java.util.Set;
 @RestController
 @RequestMapping("api/spell")
 @AllArgsConstructor
+@CrossOrigin("*")
 public class SpellController {
 
     private SpellService spellService;

@@ -17,6 +17,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("api/monster")
+@CrossOrigin("*")
 public class MonsterController {
 
     @Autowired
