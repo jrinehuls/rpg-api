@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -32,6 +33,11 @@ public class MonsterController {
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MonsterResponseDto> getMonster(@PathVariable("id") Long id) {
         return new ResponseEntity<>(monsterService.getMonster(id), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<MonsterResponseDto>> getAllMonsters() {
+        return new ResponseEntity<>(monsterService.getAllMonsters(), HttpStatus.OK);
     }
 
     @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE,

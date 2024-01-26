@@ -18,7 +18,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -46,6 +48,16 @@ public class MonsterServiceImpl implements MonsterService {
     public MonsterResponseDto getMonster(Long id) {
         Monster monster = monsterRepository.findById(id).orElseThrow(() -> new MonsterNotFoundException(id));
         return monsterMapper.mapMonsterToDto(monster);
+    }
+
+    @Override
+    public List<MonsterResponseDto> getAllMonsters() {
+        Iterable<Monster> monsters = monsterRepository.findAll();
+        List<MonsterResponseDto> monsterDtos = new ArrayList<>();
+        for (Monster monster : monsters) {
+            monsterDtos.add(monsterMapper.mapMonsterToDto(monster));
+        }
+        return monsterDtos;
     }
 
     @Override
