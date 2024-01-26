@@ -24,10 +24,26 @@ public class MonsterMapper {
         monster.setSpeed(monsterDto.getSpeed());
         monster.setBaseGold(monsterDto.getBaseGold());
         monster.setBaseExp(monsterDto.getBaseExp());
-        if (monsterDto.getImage() != null && monsterDto.getImage().getContentType() != null) {
-            monster.setImage(MonsterMapper.convertImageToBytes(monsterDto.getImage()));
-            monster.setImageExtension(getFileExtension(monsterDto.getImage().getContentType()));
-        }
+        monster.setImage(MonsterMapper.convertImageToBytes(monsterDto.getImage()));
+        monster.setImageExtension(getFileExtension(monsterDto.getImage().getContentType()));
+
+        return monster;
+    }
+
+    public Monster mapDtoToMonster(MonsterRequestDto monsterDto, Monster oldMonster) {
+        Monster monster = new Monster();
+        monster.setName(monsterDto.getName());
+        monster.setHp(monsterDto.getHp());
+        monster.setMp(monsterDto.getMp());
+        monster.setAttack(monsterDto.getAttack());
+        monster.setDefense(monsterDto.getDefense());
+        monster.setMagicAttack(monsterDto.getMagicAttack());
+        monster.setMagicDefense(monsterDto.getMagicDefense());
+        monster.setSpeed(monsterDto.getSpeed());
+        monster.setBaseGold(monsterDto.getBaseGold());
+        monster.setBaseExp(monsterDto.getBaseExp());
+        monster.setImage(oldMonster.getImage());
+        monster.setImageExtension(oldMonster.getImageExtension());
 
         return monster;
     }
