@@ -22,7 +22,8 @@ public class MonsterRequestDto {
 
     @NotNull(message = "name must be provided", groups = {MonsterCreation.class, MonsterUpdate.class})
     @NotBlank(message = "name cannot be blank", groups = {MonsterCreation.class, MonsterUpdate.class})
-    @Length(max = 255, message = "name cannot be longer than 255 characters", groups = {MonsterCreation.class, MonsterUpdate.class})
+    @Length(max = 255, message = "name cannot be longer than 255 characters",
+            groups = {MonsterCreation.class, MonsterUpdate.class})
     private String name;
 
     @NotNull(message = "hp must be provided", groups = {MonsterCreation.class, MonsterUpdate.class})
