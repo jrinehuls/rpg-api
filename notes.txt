@@ -5,6 +5,8 @@ See Database http://localhost:8080/h2
 In monster mapper do something with IOException in convertImageToBytes
 org.springframework.web.multipart.MaxUploadSizeExceededException
 
-In MonsterServiceImpl updateMonster, make so image updates if provided, but use stored image if not provided.
+Make get monster spells be in spells API
+
+Make get spell monster be in monsters API
 
 Make Get all spells API
