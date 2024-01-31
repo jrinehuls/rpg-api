@@ -17,7 +17,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -44,6 +46,16 @@ public class SpellServiceImpl implements SpellService {
     public SpellResponseDto getSpell(Long id) {
         Spell spell = spellRepository.findById(id).orElseThrow(() -> new SpellNotFoundException(id));
         return spellMapper.mapSpellToDto(spell);
+    }
+
+    @Override
+    public List<SpellResponseDto> getAllSpells() {
+        List<Spell> spells = spellRepository.findAll();
+        List<SpellResponseDto> spellDtos = new ArrayList<>();
+        for (Spell spell : spells) {
+            spellDtos.add(spellMapper.mapSpellToDto(spell));
+        }
+        return spellDtos;
     }
 
     @Override

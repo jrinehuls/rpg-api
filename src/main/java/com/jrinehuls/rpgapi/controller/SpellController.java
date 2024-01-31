@@ -8,9 +8,11 @@ import com.jrinehuls.rpgapi.service.SpellService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -29,6 +31,11 @@ public class SpellController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<SpellResponseDto> getSpell(@PathVariable("id") Long id) {
         return new ResponseEntity<>(spellService.getSpell(id), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<SpellResponseDto>> getAllSpells() {
+        return new ResponseEntity<>(spellService.getAllSpells(), HttpStatus.OK);
     }
 
     @PutMapping(value = "/{id}")

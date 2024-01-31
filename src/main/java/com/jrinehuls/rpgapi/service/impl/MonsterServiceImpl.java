@@ -52,7 +52,7 @@ public class MonsterServiceImpl implements MonsterService {
 
     @Override
     public List<MonsterResponseDto> getAllMonsters() {
-        Iterable<Monster> monsters = monsterRepository.findAll();
+        List<Monster> monsters = monsterRepository.findAll();
         List<MonsterResponseDto> monsterDtos = new ArrayList<>();
         for (Monster monster : monsters) {
             monsterDtos.add(monsterMapper.mapMonsterToDto(monster));
