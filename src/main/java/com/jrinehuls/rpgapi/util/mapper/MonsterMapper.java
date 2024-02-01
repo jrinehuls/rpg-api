@@ -3,7 +3,6 @@ package com.jrinehuls.rpgapi.util.mapper;
 import com.jrinehuls.rpgapi.dto.monster.MonsterRequestDto;
 import com.jrinehuls.rpgapi.dto.monster.MonsterResponseDto;
 import com.jrinehuls.rpgapi.entity.Monster;
-import com.jrinehuls.rpgapi.validation.MonsterUpdate;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 

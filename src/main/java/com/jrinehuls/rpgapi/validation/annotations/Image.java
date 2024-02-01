@@ -1,4 +1,4 @@
-package com.jrinehuls.rpgapi.validation;
+package com.jrinehuls.rpgapi.validation.annotations;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

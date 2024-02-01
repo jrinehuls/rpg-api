@@ -1,9 +1,9 @@
 package com.jrinehuls.rpgapi.dto.monster;
 
 
-import com.jrinehuls.rpgapi.validation.Image;
-import com.jrinehuls.rpgapi.validation.MonsterCreation;
-import com.jrinehuls.rpgapi.validation.MonsterUpdate;
+import com.jrinehuls.rpgapi.validation.annotations.Image;
+import com.jrinehuls.rpgapi.validation.groups.MonsterCreation;
+import com.jrinehuls.rpgapi.validation.groups.MonsterUpdate;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
