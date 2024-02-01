@@ -5,6 +5,5 @@ See Database http://localhost:8080/h2
 In monster mapper do something with IOException in convertImageToBytes
 org.springframework.web.multipart.MaxUploadSizeExceededException
 
-Make monster name 30 char max
-
+Make monster request DTO all strings and validate min max that way
 Limit Ints for stats

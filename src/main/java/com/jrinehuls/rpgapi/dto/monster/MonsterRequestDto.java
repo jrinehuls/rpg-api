@@ -4,8 +4,7 @@ package com.jrinehuls.rpgapi.dto.monster;
 import com.jrinehuls.rpgapi.validation.Image;
 import com.jrinehuls.rpgapi.validation.MonsterCreation;
 import com.jrinehuls.rpgapi.validation.MonsterUpdate;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +21,7 @@ public class MonsterRequestDto {
 
     @NotNull(message = "name must be provided", groups = {MonsterCreation.class, MonsterUpdate.class})
     @NotBlank(message = "name cannot be blank", groups = {MonsterCreation.class, MonsterUpdate.class})
-    @Length(max = 255, message = "name cannot be longer than 255 characters",
+    @Length(max = 25, message = "name cannot be longer than 25 characters",
             groups = {MonsterCreation.class, MonsterUpdate.class})
     private String name;
 
