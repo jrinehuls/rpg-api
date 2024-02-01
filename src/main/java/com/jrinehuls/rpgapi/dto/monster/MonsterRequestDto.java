@@ -4,12 +4,14 @@ package com.jrinehuls.rpgapi.dto.monster;
 import com.jrinehuls.rpgapi.validation.annotations.Image;
 import com.jrinehuls.rpgapi.validation.groups.MonsterCreation;
 import com.jrinehuls.rpgapi.validation.groups.MonsterUpdate;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -26,9 +28,13 @@ public class MonsterRequestDto {
     private String name;
 
     @NotNull(message = "hp must be provided", groups = {MonsterCreation.class, MonsterUpdate.class})
+    @Range(min = 1, max = 255, message = "hp must be between 1 and 255",
+            groups = {MonsterCreation.class, MonsterUpdate.class})
     private Integer hp;
 
     @NotNull(message = "mp must be provided", groups = {MonsterCreation.class, MonsterUpdate.class})
+    @Range(min = 1, max = 255, message = "mp must be between 1 and 255",
+            groups = {MonsterCreation.class, MonsterUpdate.class})
     private Integer mp;
 
     @NotNull(message = "attack must be provided", groups = {MonsterCreation.class, MonsterUpdate.class})
