@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
 @NoArgsConstructor
 @Getter
@@ -24,7 +25,7 @@ public class SpellRequestDto {
     private String description;
 
     @NotNull(message = "power cannot be null")
-    @Min(value = 0, message = "power cannot be negative")
+    @Range(min = 0, max = 120, message = "power must be between 0 and 120")
     private Integer power;
 
 }
