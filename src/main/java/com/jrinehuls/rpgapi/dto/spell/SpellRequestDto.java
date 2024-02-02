@@ -15,7 +15,7 @@ public class SpellRequestDto {
 
     @NotBlank(message = "name cannot be blank")
     @NotNull(message = "name cannot be null")
-    @Length(max = 255, message = "name cannot be longer than 255 characters")
+    @Length(max = 25, message = "name cannot be longer than 25 characters")
     private String name;
 
     @NotBlank(message = "description cannot be blank")
