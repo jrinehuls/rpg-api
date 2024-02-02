@@ -38,24 +38,36 @@ public class MonsterRequestDto {
     private Integer mp;
 
     @NotNull(message = "attack must be provided", groups = {MonsterCreation.class, MonsterUpdate.class})
+    @Range(min = 1, max = 255, message = "attack must be between 1 and 255",
+            groups = {MonsterCreation.class, MonsterUpdate.class})
     private Integer attack;
 
     @NotNull(message = "defense must be provided", groups = {MonsterCreation.class, MonsterUpdate.class})
+    @Range(min = 1, max = 255, message = "defense must be between 1 and 255",
+            groups = {MonsterCreation.class, MonsterUpdate.class})
     private Integer defense;
 
     @NotNull(message = "magicAttack must be provided", groups = {MonsterCreation.class, MonsterUpdate.class})
+    @Range(min = 1, max = 255, message = "magicAttack must be between 1 and 255",
+            groups = {MonsterCreation.class, MonsterUpdate.class})
     private Integer magicAttack;
 
     @NotNull(message = "magicDefense must be provided", groups = {MonsterCreation.class, MonsterUpdate.class})
+    @Range(min = 1, max = 255, message = "magicDefense must be between 1 and 255",
+            groups = {MonsterCreation.class, MonsterUpdate.class})
     private Integer magicDefense;
 
     @NotNull(message = "speed must be provided", groups = {MonsterCreation.class, MonsterUpdate.class})
+    @Range(min = 1, max = 255, message = "speed must be between 1 and 255",
+            groups = {MonsterCreation.class, MonsterUpdate.class})
     private Integer speed;
 
     @NotNull(message = "baseGold must be provided", groups = {MonsterCreation.class, MonsterUpdate.class})
+    @Min(value = 1, message = "baseGold must be at least 1", groups = {MonsterCreation.class, MonsterUpdate.class})
     private Integer baseGold;
 
     @NotNull(message = "baseExp must be provided", groups = {MonsterCreation.class, MonsterUpdate.class})
+    @Min(value = 1, message = "baseExp must be at least 1", groups = {MonsterCreation.class, MonsterUpdate.class})
     private Integer baseExp;
 
     @NotNull(message = "image must be provided", groups = {MonsterCreation.class})
