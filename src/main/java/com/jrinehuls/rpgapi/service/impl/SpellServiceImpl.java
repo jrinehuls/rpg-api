@@ -32,7 +32,8 @@ public class SpellServiceImpl implements SpellService {
 
     @Override
     public SpellResponseDto saveSpell(SpellRequestDto spellRequestDto) {
-        Spell spell = spellMapper.mapDtoToSpell(spellRequestDto);
+        Spell spell = new Spell();
+        spellMapper.mapDtoToSpell(spellRequestDto, spell);
         try {
             Spell savedSpell = spellRepository.save(spell);
             return spellMapper.mapSpellToDto(savedSpell);
@@ -62,9 +63,8 @@ public class SpellServiceImpl implements SpellService {
     public SpellResponseDto updateSpell(Long id, SpellRequestDto spellRequestDto) {
         Spell spell = spellRepository.findById(id).orElseThrow(() -> new SpellNotFoundException(id));
         try {
-            Spell updatedSpell = spellMapper.mapDtoToSpell(spellRequestDto);
-            updatedSpell.setId(spell.getId());
-            Spell savedSpell = spellRepository.save(updatedSpell);
+            spellMapper.mapDtoToSpell(spellRequestDto, spell);
+            Spell savedSpell = spellRepository.save(spell);
             return spellMapper.mapSpellToDto(savedSpell);
         } catch (DataIntegrityViolationException e) {
             String field = ExceptionParser.getUniqueConstraintField(e, Spell.class);

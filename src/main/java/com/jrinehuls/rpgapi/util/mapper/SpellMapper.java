@@ -8,13 +8,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SpellMapper {
 
-    public Spell mapDtoToSpell(SpellRequestDto spellDto) {
-        Spell spell = new Spell();
+    public void mapDtoToSpell(SpellRequestDto spellDto, Spell spell) {
         spell.setName(spellDto.getName());
         spell.setDescription(spellDto.getDescription());
         spell.setPower(spellDto.getPower());
-
-        return spell;
     }
 
     public SpellResponseDto mapSpellToDto(Spell spell) {
