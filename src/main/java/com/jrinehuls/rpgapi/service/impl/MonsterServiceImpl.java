@@ -34,7 +34,8 @@ public class MonsterServiceImpl implements MonsterService {
 
     @Override
     public MonsterResponseDto saveMonster(MonsterRequestDto monsterRequestDto) {
-        Monster monster = monsterMapper.mapDtoToMonster(monsterRequestDto);
+        Monster monster = new Monster();
+        monsterMapper.mapDtoToMonster(monsterRequestDto, monster);
         try {
             Monster savedMonster = monsterRepository.save(monster);
             return monsterMapper.mapMonsterToDto(savedMonster);
@@ -63,16 +64,9 @@ public class MonsterServiceImpl implements MonsterService {
     @Override
     public MonsterResponseDto updateMonster(Long id, MonsterRequestDto monsterRequestDto) {
         Monster monster = monsterRepository.findById(id).orElseThrow(() -> new MonsterNotFoundException(id));
-        Monster savedMonster;
-        Monster updatedMonster;
         try {
-            try {
-                updatedMonster = monsterMapper.mapDtoToMonster(monsterRequestDto);
-            } catch (NullPointerException e) {
-                updatedMonster = monsterMapper.mapDtoToMonster(monsterRequestDto, monster);
-            }
-            updatedMonster.setId(monster.getId());
-            savedMonster = monsterRepository.save(updatedMonster);
+            monsterMapper.mapDtoToMonster(monsterRequestDto, monster);
+            Monster savedMonster = monsterRepository.save(monster);
             return monsterMapper.mapMonsterToDto(savedMonster);
         } catch (DataIntegrityViolationException e) {
             String field = ExceptionParser.getUniqueConstraintField(e, Monster.class);
