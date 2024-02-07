@@ -90,6 +90,7 @@ public class MonsterServiceImpl implements MonsterService {
     public Set<SpellResponseDto> addSpellToMonster(Long monsterId, Long spellId) {
         Monster monster = monsterRepository.findById(monsterId).orElseThrow(() -> new MonsterNotFoundException(monsterId));
         Spell spell = spellRepository.findById(spellId).orElseThrow(() -> new SpellNotFoundException(spellId));
+        // TODO: Don't allow more than 2 spells
         monster.getSpells().add(spell);
         Monster savedMonster = monsterRepository.save(monster);
         return this.getMonsterSpells(savedMonster);
