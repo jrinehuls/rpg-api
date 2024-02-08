@@ -4,9 +4,11 @@ import com.jrinehuls.rpgapi.dto.monster.MonsterRequestDto;
 import com.jrinehuls.rpgapi.dto.monster.MonsterResponseDto;
 import com.jrinehuls.rpgapi.dto.spell.SpellResponseDto;
 import com.jrinehuls.rpgapi.entity.Spell;
+import com.jrinehuls.rpgapi.exception.conflict.MaxSpellsConflictException;
 import com.jrinehuls.rpgapi.exception.conflict.MonsterConflictException;
 import com.jrinehuls.rpgapi.exception.notfound.MonsterNotFoundException;
 import com.jrinehuls.rpgapi.entity.Monster;
+import com.jrinehuls.rpgapi.exception.notfound.MonsterSpellNotFoundException;
 import com.jrinehuls.rpgapi.exception.notfound.SpellNotFoundException;
 import com.jrinehuls.rpgapi.repository.MonsterRepository;
 import com.jrinehuls.rpgapi.repository.SpellRepository;
@@ -27,6 +29,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class MonsterServiceImpl implements MonsterService {
 
+    private final int MAX_SPELLS = 2;
     private MonsterRepository monsterRepository;
     private MonsterMapper monsterMapper;
     private SpellRepository spellRepository;
@@ -90,8 +93,22 @@ public class MonsterServiceImpl implements MonsterService {
     public Set<SpellResponseDto> addSpellToMonster(Long monsterId, Long spellId) {
         Monster monster = monsterRepository.findById(monsterId).orElseThrow(() -> new MonsterNotFoundException(monsterId));
         Spell spell = spellRepository.findById(spellId).orElseThrow(() -> new SpellNotFoundException(spellId));
-        // TODO: Don't allow more than 2 spells
+        if (monster.getSpells().size() >= MAX_SPELLS) {
+            throw new MaxSpellsConflictException(MAX_SPELLS);
+        }
         monster.getSpells().add(spell);
+        Monster savedMonster = monsterRepository.save(monster);
+        return this.getMonsterSpells(savedMonster);
+    }
+
+    @Override
+    public Set<SpellResponseDto> removeSpellFromMonster(Long monsterId, Long spellId) {
+        Monster monster = monsterRepository.findById(monsterId).orElseThrow(() -> new MonsterNotFoundException(monsterId));
+        Spell spell = spellRepository.findById(spellId).orElseThrow(() -> new SpellNotFoundException(spellId));
+        if (!monster.getSpells().contains(spell)) {
+            throw new MonsterSpellNotFoundException(monsterId, spellId);
+        }
+        monster.getSpells().remove(spell);
         Monster savedMonster = monsterRepository.save(monster);
         return this.getMonsterSpells(savedMonster);
     }

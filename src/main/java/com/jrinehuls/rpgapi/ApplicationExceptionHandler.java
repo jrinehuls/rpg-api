@@ -1,10 +1,9 @@
 package com.jrinehuls.rpgapi;
 
 import com.jrinehuls.rpgapi.exception.ErrorResponse;
-import com.jrinehuls.rpgapi.exception.conflict.MonsterConflictException;
-import com.jrinehuls.rpgapi.exception.conflict.ResourceConflictException;
-import com.jrinehuls.rpgapi.exception.conflict.SpellConflictException;
+import com.jrinehuls.rpgapi.exception.conflict.*;
 import com.jrinehuls.rpgapi.exception.notfound.MonsterNotFoundException;
+import com.jrinehuls.rpgapi.exception.notfound.MonsterSpellNotFoundException;
 import com.jrinehuls.rpgapi.exception.notfound.ResourceNotFoundException;
 import com.jrinehuls.rpgapi.exception.notfound.SpellNotFoundException;
 import org.hibernate.exception.ConstraintViolationException;
@@ -43,7 +42,7 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler({MonsterNotFoundException.class, SpellNotFoundException.class})
+    @ExceptionHandler({MonsterNotFoundException.class, SpellNotFoundException.class, MonsterSpellNotFoundException.class})
     public ResponseEntity<ErrorResponse> handleResourceNotFoundException(ResourceNotFoundException ex) {
         String message = ex.getMessage();
         ErrorResponse response = new ErrorResponse(null);
@@ -57,6 +56,14 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
         errors.put(ex.getField(), List.of(ex.getMessage()));
         ErrorResponse response = new ErrorResponse(errors);
         response.setMessage("There be conflicting data");
+        return new ResponseEntity<>(response, ex.getStatusCode());
+    }
+
+    @ExceptionHandler({MaxSpellsConflictException.class})
+    public ResponseEntity<ErrorResponse> handleExceedsLimitConflictException(ExceedsLimitConflictException ex) {
+        String message = ex.getMessage();
+        ErrorResponse response = new ErrorResponse(null);
+        response.setMessage(message);
         return new ResponseEntity<>(response, ex.getStatusCode());
     }
 
