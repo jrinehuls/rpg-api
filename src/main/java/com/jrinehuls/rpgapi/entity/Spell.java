@@ -23,7 +23,7 @@ public class Spell {
     @Column(name = "name", length = 25, nullable = false)
     private String name;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", length = 150, nullable = false)
     private String description;
 
     @Column (name = "power", nullable = false)
