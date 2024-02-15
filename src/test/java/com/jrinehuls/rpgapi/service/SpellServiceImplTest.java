@@ -5,6 +5,7 @@ import com.jrinehuls.rpgapi.entity.Spell;
 import com.jrinehuls.rpgapi.exception.notfound.SpellNotFoundException;
 import com.jrinehuls.rpgapi.repository.SpellRepository;
 import com.jrinehuls.rpgapi.service.impl.SpellServiceImpl;
+import com.jrinehuls.rpgapi.util.mapper.MonsterMapper;
 import com.jrinehuls.rpgapi.util.mapper.SpellMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,6 +26,9 @@ public class SpellServiceImplTest {
     @Mock
     private SpellMapper spellMapper;
 
+    @Mock
+    private MonsterMapper monsterMapper;
+
     @InjectMocks
     private SpellServiceImpl spellService;
 
@@ -33,9 +37,7 @@ public class SpellServiceImplTest {
         Long id = 0L;
         Spell spell = new Spell();
         when(spellRepository.findById(id)).thenReturn(Optional.of(spell));
-
         spellService.getSpell(id);
-
         verify(spellMapper, times(1)).mapSpellToDto(spell);
     }
 
