@@ -26,9 +26,9 @@ import java.util.Set;
 @AllArgsConstructor
 public class SpellServiceImpl implements SpellService {
 
-    private SpellRepository spellRepository;
-    private SpellMapper spellMapper;
-    private MonsterMapper monsterMapper;
+    private final SpellRepository spellRepository;
+    private final SpellMapper spellMapper;
+    private final MonsterMapper monsterMapper;
 
     @Override
     public SpellResponseDto saveSpell(SpellRequestDto spellRequestDto) {

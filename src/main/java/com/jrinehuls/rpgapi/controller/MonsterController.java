@@ -6,6 +6,7 @@ import com.jrinehuls.rpgapi.dto.spell.SpellResponseDto;
 import com.jrinehuls.rpgapi.service.MonsterService;
 import com.jrinehuls.rpgapi.validation.groups.MonsterCreation;
 import com.jrinehuls.rpgapi.validation.groups.MonsterUpdate;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,11 +19,11 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("api/monster")
+@AllArgsConstructor
 @CrossOrigin("*")
 public class MonsterController {
 
-    @Autowired
-    private MonsterService monsterService;
+    private final MonsterService monsterService;
 
     @PostMapping(value = "", consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)

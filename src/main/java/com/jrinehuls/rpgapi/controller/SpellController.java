@@ -21,7 +21,7 @@ import java.util.Set;
 @CrossOrigin("*")
 public class SpellController {
 
-    private SpellService spellService;
+    private final SpellService spellService;
 
     @PostMapping(value = "")
     public ResponseEntity<SpellResponseDto> createSpell(@Valid @RequestBody SpellRequestDto dto) {

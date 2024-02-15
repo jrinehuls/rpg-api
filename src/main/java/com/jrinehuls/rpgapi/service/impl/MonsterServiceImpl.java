@@ -29,11 +29,10 @@ import java.util.Set;
 @AllArgsConstructor
 public class MonsterServiceImpl implements MonsterService {
 
-    private final int MAX_SPELLS = 2;
-    private MonsterRepository monsterRepository;
-    private MonsterMapper monsterMapper;
-    private SpellRepository spellRepository;
-    private SpellMapper spellMapper;
+    private final MonsterRepository monsterRepository;
+    private final MonsterMapper monsterMapper;
+    private final SpellRepository spellRepository;
+    private final SpellMapper spellMapper;
 
     @Override
     public MonsterResponseDto saveMonster(MonsterRequestDto monsterRequestDto) {
@@ -91,10 +90,11 @@ public class MonsterServiceImpl implements MonsterService {
 
     @Override
     public Set<SpellResponseDto> addSpellToMonster(Long monsterId, Long spellId) {
+        int maxSpells = 2;
         Monster monster = monsterRepository.findById(monsterId).orElseThrow(() -> new MonsterNotFoundException(monsterId));
         Spell spell = spellRepository.findById(spellId).orElseThrow(() -> new SpellNotFoundException(spellId));
-        if (monster.getSpells().size() >= MAX_SPELLS) {
-            throw new MaxSpellsConflictException(MAX_SPELLS);
+        if (monster.getSpells().size() >= maxSpells) {
+            throw new MaxSpellsConflictException(maxSpells);
         }
         monster.getSpells().add(spell);
         Monster savedMonster = monsterRepository.save(monster);
