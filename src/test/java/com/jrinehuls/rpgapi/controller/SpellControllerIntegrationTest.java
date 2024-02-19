@@ -60,6 +60,7 @@ public class SpellControllerIntegrationTest {
         RequestBuilder builder = MockMvcRequestBuilders.get("/api/spell");
         mockMvc.perform(builder).andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()").value(1))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.[?(@.id == 1 && @.name == \"Flare\")]").exists());
     }
 }
