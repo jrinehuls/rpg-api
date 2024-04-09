@@ -13,7 +13,11 @@ public class UserMapper {
     }
 
     public UserDto mapUserToDto(User user) {
-        return new UserDto(user.getUsername(), user.getPassword());
+        UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
+        userDto.setUsername(user.getUsername());
+        userDto.setPassword(user.getPassword());
+        return userDto;
     }
 
 }

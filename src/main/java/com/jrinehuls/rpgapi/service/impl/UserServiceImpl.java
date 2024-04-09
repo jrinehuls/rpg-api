@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 class UserServiceImpl implements UserService {
 
+    // TODO: Handle unique constraint on username. Probably DataIntegrityViolationException.
+
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
@@ -26,5 +28,5 @@ class UserServiceImpl implements UserService {
         User savedUser = userRepository.save(user);
         return userMapper.mapUserToDto(savedUser);
     }
-    
+
 }
