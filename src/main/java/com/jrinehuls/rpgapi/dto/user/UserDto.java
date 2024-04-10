@@ -1,16 +1,17 @@
 package com.jrinehuls.rpgapi.dto.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @RequiredArgsConstructor
+@ToString
 public class UserDto {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
