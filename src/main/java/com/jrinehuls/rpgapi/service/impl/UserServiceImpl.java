@@ -18,7 +18,7 @@ class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    private final PasswordEncoder passwordEncoder;
+    // private final PasswordEncoder passwordEncoder;
 
     @Override
     public User getUser(String username) {
