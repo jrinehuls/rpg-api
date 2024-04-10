@@ -18,7 +18,7 @@ class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    // private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public User getUser(String username) {
@@ -27,6 +27,7 @@ class UserServiceImpl implements UserService {
 
     @Override
     public UserDto registerUser(UserDto userDto) {
+        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
         User user = userMapper.mapDtoToUser(userDto);
         User savedUser = userRepository.save(user);
         return userMapper.mapUserToDto(savedUser);
