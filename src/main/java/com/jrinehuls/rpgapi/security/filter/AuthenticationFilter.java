@@ -1,5 +1,7 @@
 package com.jrinehuls.rpgapi.security.filter;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jrinehuls.rpgapi.dto.user.UserDto;
 import com.jrinehuls.rpgapi.exception.badrequest.UserBadRequestException;
@@ -17,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.Date;
 
 @AllArgsConstructor
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -38,12 +41,19 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        System.out.println("Good");
+        String token = JWT.create()
+                .withSubject(authResult.getName()) // TODO: add claim or key id for user id
+                .withExpiresAt(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 2))
+                .sign(Algorithm.HMAC512("bQeThWmZq4t7w!z$C&F)J@NcRfUjXn2r5u8x/A?D*G-KaPdSgVkYp3s6v9y$B&E)"));
+        response.addHeader("Authorization", "Bearer " + token);
     }
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        System.out.println(failed.getMessage());
+        // Incorrect password
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.getWriter().write("{\"message\": " + "\"" + failed.getMessage() + "\"}");
+        response.getWriter().flush();
     }
 
 }
