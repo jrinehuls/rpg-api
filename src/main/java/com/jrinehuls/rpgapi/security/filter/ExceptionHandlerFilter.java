@@ -1,5 +1,6 @@
 package com.jrinehuls.rpgapi.security.filter;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.jrinehuls.rpgapi.exception.badrequest.UserBadRequestException;
 import com.jrinehuls.rpgapi.exception.notfound.UserNotFoundException;
 import jakarta.servlet.FilterChain;
@@ -23,6 +24,11 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
         } catch (UserNotFoundException e) {
             response.setStatus(e.getStatusCode().value());
             response.getWriter().write("{\"message\": " + "\"" + e.getMessage() + "\"}");
+            response.getWriter().flush();
+        } catch (JWTVerificationException e) {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            // Could make object and have jackson write string
+            response.getWriter().write("Invalid JWT" + e.getMessage());
             response.getWriter().flush();
         }
     }

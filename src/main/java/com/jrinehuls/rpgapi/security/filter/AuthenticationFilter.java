@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jrinehuls.rpgapi.dto.user.UserDto;
 import com.jrinehuls.rpgapi.exception.badrequest.UserBadRequestException;
+import com.jrinehuls.rpgapi.security.SecurityConstants;
 import com.jrinehuls.rpgapi.security.manager.CustomAuthenticationManager;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -43,8 +44,8 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         String token = JWT.create()
                 .withSubject(authResult.getName()) // TODO: add claim or key id for user id
-                .withExpiresAt(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 2))
-                .sign(Algorithm.HMAC512("bQeThWmZq4t7w!z$C&F)J@NcRfUjXn2r5u8x/A?D*G-KaPdSgVkYp3s6v9y$B&E)"));
+                .withExpiresAt(new Date(System.currentTimeMillis() + SecurityConstants.TOKEN_LIFE_MILLIS))
+                .sign(Algorithm.HMAC512(SecurityConstants.SECRET));
         response.addHeader("Authorization", "Bearer " + token);
     }
 
