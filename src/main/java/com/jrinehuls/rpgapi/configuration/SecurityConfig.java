@@ -2,6 +2,8 @@ package com.jrinehuls.rpgapi.configuration;
 
 import com.jrinehuls.rpgapi.security.filter.AuthenticationFilter;
 import com.jrinehuls.rpgapi.security.filter.ExceptionHandlerFilter;
+import com.jrinehuls.rpgapi.security.manager.CustomAuthenticationManager;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -12,11 +14,14 @@ import org.springframework.security.web.SecurityFilterChain;
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
 @Configuration
+@AllArgsConstructor
 public class SecurityConfig {
+
+    private final CustomAuthenticationManager authenticationManager;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        AuthenticationFilter authenticationFilter = new AuthenticationFilter();
+        AuthenticationFilter authenticationFilter = new AuthenticationFilter(authenticationManager);
         authenticationFilter.setFilterProcessesUrl("/api/user/authenticate");
 
         http

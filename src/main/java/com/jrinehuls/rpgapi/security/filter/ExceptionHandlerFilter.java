@@ -1,6 +1,7 @@
 package com.jrinehuls.rpgapi.security.filter;
 
 import com.jrinehuls.rpgapi.exception.badrequest.UserBadRequestException;
+import com.jrinehuls.rpgapi.exception.notfound.UserNotFoundException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,6 +19,10 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
         } catch (UserBadRequestException e) {
             response.setStatus(e.getStatusCode());
             response.getWriter().write(e.getMessage());
+            response.getWriter().flush();
+        } catch (UserNotFoundException e) {
+            response.setStatus(e.getStatusCode().value());
+            response.getWriter().write("{\"message\": " + "\"" + e.getMessage() + "\"}");
             response.getWriter().flush();
         }
     }
