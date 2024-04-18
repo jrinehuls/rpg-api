@@ -17,7 +17,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
@@ -51,13 +53,15 @@ public class SecurityConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        //configuration.setAllowCredentials(true);
-        //configuration.applyPermitDefaultValues();
-        configuration.setAllowedOriginPatterns(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("*"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.setExposedHeaders(Arrays.asList("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        List<String> theList = List.of("*");
+
+        configuration.setAllowedOriginPatterns(theList);
+        configuration.setAllowedMethods(theList);
+        configuration.setAllowedHeaders(theList);
+        configuration.setExposedHeaders(theList);
+        //configuration.setAllowCredentials(true);
+
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
