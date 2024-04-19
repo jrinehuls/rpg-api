@@ -50,7 +50,7 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
         return new ResponseEntity<>(response, ex.getStatusCode());
     }
 
-    @ExceptionHandler({MonsterConflictException.class, SpellConflictException.class})
+    @ExceptionHandler({MonsterConflictException.class, SpellConflictException.class, UserConflictException.class})
     public ResponseEntity<ErrorResponse> handleResourceConflictException(ResourceConflictException ex) {
         Map<String, List<String>> errors = new HashMap<>();
         errors.put(ex.getField(), List.of(ex.getMessage()));

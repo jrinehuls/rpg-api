@@ -14,6 +14,14 @@ public class ExceptionParser {
         return capsSnakeToCamel(field);
     }
 
+    public static String getUniqueConstraintField(DataIntegrityViolationException ex, String tableName) {
+        String capsTableName = tableName.toUpperCase();
+        String constraintText = ((ConstraintViolationException) ex.getCause()).getConstraintName();
+        String right = constraintText.split(capsTableName + "\\(", 2)[1];
+        String field = right.split(" NULLS FIRST", 2)[0];
+        return capsSnakeToCamel(field);
+    }
+
     /*
     * Comes in like MAGIC_ATTACK or NAME
     * Return magicAttack or name
