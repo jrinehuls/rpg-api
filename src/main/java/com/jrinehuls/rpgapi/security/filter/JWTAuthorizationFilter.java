@@ -30,7 +30,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
         String token = header.replace("Bearer ", ""); // JWT
         String username = JWT.require(Algorithm.HMAC512(SecurityConstants.SECRET))
                 .build()
-                .verify(token) // Throws JWTVerificationException
+                .verify(token) // Throws JWTVerificationException. Could catch here and throw a custom exception
                 .getSubject();
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
