@@ -121,7 +121,7 @@ public class MonsterController {
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @Operation(summary = "Get a monster's spells", description = "Gets the spells a monster knows based on monster id")
-    @GetMapping("/{id}/spells")
+    @GetMapping(value = "/{id}/spells", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<SpellResponseDto>> getSpells(@PathVariable("id") Long id) {
         return new ResponseEntity<>(monsterService.getSpells(id), HttpStatus.OK);
     }
@@ -136,7 +136,7 @@ public class MonsterController {
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @Operation(summary = "Teach monster a spell", description = "Teach the spell to a monster based on spell id and monster id")
-    @PatchMapping("/{monsterId}/add-spell/{spellId}")
+    @PatchMapping(value = "/{monsterId}/add-spell/{spellId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<SpellResponseDto>> addSpellToMonster(@PathVariable("monsterId") Long monsterId,
                                                                    @PathVariable("spellId") Long spellId) {
         return new ResponseEntity<>(monsterService.addSpellToMonster(monsterId, spellId), HttpStatus.OK);
@@ -152,7 +152,7 @@ public class MonsterController {
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     @Operation(summary = "Forget spell for a monster", description = "Forget the spell of a monster based on spell id and monster id")
-    @PatchMapping("/{monsterId}/remove-spell/{spellId}")
+    @PatchMapping(value = "/{monsterId}/remove-spell/{spellId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Set<SpellResponseDto>> removeSpellFromMonster(@PathVariable("monsterId") Long monsterId,
                                                                    @PathVariable("spellId") Long spellId) {
         return new ResponseEntity<>(monsterService.removeSpellFromMonster(monsterId, spellId), HttpStatus.OK);
