@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/user")
 @AllArgsConstructor
 @CrossOrigin("*")
-@Tag(name = "Spell Controller", description = "Endpoints for managing spells")
+@Tag(name = "User Controller", description = "Endpoints for managing users")
 public class UserController {
 
     private final UserService userService;
