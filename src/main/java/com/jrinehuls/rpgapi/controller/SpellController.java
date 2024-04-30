@@ -5,6 +5,7 @@ import com.jrinehuls.rpgapi.dto.spell.SpellRequestDto;
 import com.jrinehuls.rpgapi.dto.spell.SpellResponseDto;
 import com.jrinehuls.rpgapi.entity.Spell;
 import com.jrinehuls.rpgapi.service.SpellService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import java.util.Set;
 @RequestMapping("api/spell")
 @AllArgsConstructor
 @CrossOrigin("*")
+@SecurityRequirement(name = "Bearer Authentication")
 public class SpellController {
 
     private final SpellService spellService;

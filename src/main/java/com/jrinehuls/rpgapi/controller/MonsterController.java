@@ -6,6 +6,7 @@ import com.jrinehuls.rpgapi.dto.spell.SpellResponseDto;
 import com.jrinehuls.rpgapi.service.MonsterService;
 import com.jrinehuls.rpgapi.validation.groups.MonsterCreation;
 import com.jrinehuls.rpgapi.validation.groups.MonsterUpdate;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import java.util.Set;
 @RequestMapping("api/monster")
 @AllArgsConstructor
 @CrossOrigin("*")
+@SecurityRequirement(name = "Bearer Authentication")
 public class MonsterController {
 
     private final MonsterService monsterService;

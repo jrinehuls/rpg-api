@@ -39,8 +39,7 @@ public class SecurityConfig {
                 .headers(headers -> headers.frameOptions(options -> options.disable())) // Don't need when not using H2
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(antMatcher("/swagger-ui/**")).permitAll()
-                        .requestMatchers(antMatcher("/v3/api-docs/**")).permitAll()
+                        .requestMatchers(antMatcher("/swagger-ui/**"), antMatcher("/v3/api-docs/**")).permitAll()
                         .requestMatchers(antMatcher("/h2/**")).permitAll() // Don't need when not using H2
                         .requestMatchers(antMatcher(HttpMethod.POST, "/api/user/register")).permitAll()
                         .anyRequest().authenticated()
