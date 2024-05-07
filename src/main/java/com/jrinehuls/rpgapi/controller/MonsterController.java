@@ -57,7 +57,8 @@ public class MonsterController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful retrieval of monster",
                     content = @Content(schema = @Schema(implementation = MonsterResponseDto.class))),
-            @ApiResponse(responseCode = "400", description = "Invalid data type on id"),
+            @ApiResponse(responseCode = "400", description = "Invalid data type on id",
+                    content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
             @ApiResponse(responseCode = "404", description = "Monster doesn't exist",
                     content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
